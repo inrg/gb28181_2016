@@ -1,0 +1,3 @@
+/home/xhw/gb28181_2016/debug/CMakeFiles/rebuild_cache.dir
+/home/xhw/gb28181_2016/debug/CMakeFiles/gb28181.dir
+/home/xhw/gb28181_2016/debug/CMakeFiles/edit_cache.dir
