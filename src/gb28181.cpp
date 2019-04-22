@@ -742,7 +742,7 @@ int SIP_SERVER::Call_Build_Initial_Invite(int index,const char * rtp_svr, int rt
 		osip_message_set_supported (invite, "100rel");
 		/*100rel是临时响应的确认机制, 1xx临时响应，要求对端使用PRACK信令确认收到本信令
 		收到PRACK后，本端针对PRACK相应200OK，便如三次握手*/
-		/*memset(req_xml_body, 0, sizeof(req_xml_body));
+		memset(req_xml_body, 0, sizeof(req_xml_body));
 		snprintf(req_xml_body, 4096,  
 		"v=0\r\n"
 		"o=34020000002000000001 0 0 IN IP4 %s\r\n"
@@ -754,19 +754,21 @@ int SIP_SERVER::Call_Build_Initial_Invite(int index,const char * rtp_svr, int rt
 		"a=rtpmap:96 PS/90000\r\n"
 		"a=rtpmap:98 H264/90000\r\n"
 		"a=rtpmap:97 MPEG4/90000\r\n"
+		"a=setup:passive\r\n"
+		"a=connection:new\r\n"
 		"y=0100001001\r\n"
-		, rtp_svr, rtp_svr, rtp_svr_port);  */
+		, rtp_svr, rtp_svr, rtp_svr_port); 
 		osip_message_set_content_type(invite, "APPLICATION/SDP");
-		//osip_message_set_body(invite, req_xml_body, strlen(req_xml_body));
+		osip_message_set_body(invite, req_xml_body, strlen(req_xml_body));
 		//replace(invie_req_body->body,"26.1.1.59","218.94.1.147");
 		//printf("Call_Build_Initial_Invite   1 ");
 		//printf("11111invite  body %s\n",invie_req_body->body);
 		
-		invie_req_body->body = replace(invie_req_body->body,"26.1.1.59","218.94.1.147");
-		invie_req_body->body = replace(invie_req_body->body,"26.1.1.59","218.94.1.147");
+		//invie_req_body->body = replace(invie_req_body->body,"26.1.1.59","218.94.1.147");
+		//invie_req_body->body = replace(invie_req_body->body,"26.1.1.59","218.94.1.147");
 		//printf("2222222invite  body %s\n",invie_req_body->body);
 		//printf("Call_Build_Initial_Invite   2 ");
-		osip_message_set_body(invite, invie_req_body->body, strlen(invie_req_body->body));
+		//osip_message_set_body(invite, invie_req_body->body, strlen(invie_req_body->body));
 		
 		
 		eXosip_lock();  
@@ -1828,7 +1830,7 @@ int main (int argc, char *argv[])
 	
 	
 	int  flag=1;   
-	char command ='n';
+	char command ;
 	int loop = 0;
 	char req_xml_body[4096] = {0};
 	s_thread_param  thread_param;
@@ -1846,7 +1848,7 @@ int main (int argc, char *argv[])
 		}
 	}
 	while(flag)  
-	{  		char req_xml_body[4096] = {0};
+	{  		/*char req_xml_body[4096] = {0};
 	printf("send heartbeat1\n");
 	
 	osip_message_t* heart_msg = NULL;
@@ -1865,20 +1867,17 @@ int main (int argc, char *argv[])
 	osip_message_set_content_type(heart_msg, "Application/MANSCDP+xml");
 	int qqq=eXosip_message_send_request(heart_msg);
 	printf("%d",qqq);
-	sleep(3);
-			//printf("Please input the command:\n");  
-			//scanf("%c",&command);  
-			//getchar();  
+	sleep(3);*/
+			printf("Please input the command:\n");  
+			scanf("%c",&command);  
+			getchar();  
 			switch(command)  
 			{  
 				case 'i': 
 #if 1	
-					for(loop = 0; loop < sip_svr.Get_Ipc_Num();loop++)
-					{
 						printf("\n $$$$$$$$   index   @@@@@@@@@@@@@  is %d \n", loop);
-						sip_svr.Call_Build_Initial_Invite(loop,"172.28.106.129",8402);
-						sleep(30);
-					}
+						sip_svr.Call_Build_Initial_Invite(loop,"192.168.75.112",8402);
+				
 #endif
 					//sip_svr.Call_Build_Initial_Invite(SAMPLE_INDEX);
 					//printf("\n $$$$$$$$   index  @@@@@@@@@@@@@  is %d \n", loop);
