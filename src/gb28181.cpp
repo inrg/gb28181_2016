@@ -115,6 +115,7 @@ class SIP_SERVER:public SIP_BASIC, public GBCallBack
 		void ResponseCatalog(char* rsp_xml_body);
 		void ProcessKeepAlive();
 		void SendKeepAlive();
+		void VideoFileQuery(char* rsp_xml_body);
 		int Call_Build_Initial_Invite(int index,const char * rtp_svr, int rtp_svr_port);
 		int Get_Ipc_Num();
 		void UpdateKeepAliveByDeviceID(char *device_id);
@@ -701,7 +702,7 @@ char*replace(char*src, char*sub, char*dst)
     srcLen = strlen(src);
     subLen = strlen(sub);
     dstLen = strlen(dst);
-    pRet = (char*)malloc(srcLen + dstLen - subLen +1);//(外部是否该空间)if (NULL != pRet)
+    pRet = (char*)malloc(srcLen + dstLen - subLen +1);//(外部是否该空�?if (NULL != pRet)
     {
         pos = strstr(src, sub) - src;
         memcpy(pRet, src, pos);
@@ -715,6 +716,22 @@ char*replace(char*src, char*sub, char*dst)
     return pRet;
 }
 
+void SIP_SERVER::VideoFileQuery(char* rsp_xml_body)
+{
+					snprintf(rsp_xml_body, 4096, 
+					"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
+					"<Query>\r\n"
+					"<CmdType>RecordInfo</CmdType>\r\n"
+					"<SN>4</SN>\r\n"
+					"<DeviceID>32010000001320000001</DeviceID>\r\n"
+					"<StartTime>2019-04-23T10:00:00</StartTime>\r\n"
+					"<EndTime>2019-04-23T15:00:00</EndTime>\r\n"
+					"<Type>all</Type>\r\n"
+					"<RecLocation>2</RecLocation>\r\n"
+					"<RecordPos>2</RecordPos>\r\n"
+					"</Query>\r\n");
+					
+}
 
 
 int SIP_SERVER::Call_Build_Initial_Invite(int index,const char * rtp_svr, int rtp_svr_port)
@@ -749,7 +766,7 @@ int SIP_SERVER::Call_Build_Initial_Invite(int index,const char * rtp_svr, int rt
 		"s=Play\r\n"
 		"c=IN IP4 %s\r\n"
 		"t=0 0\r\n"
-		"m=video %d RTP/AVP 96 98 97\r\n"
+		"m=video %d TCP/RTP/AVP 96 98 97\r\n"
 		"a=recvonly\r\n"
 		"a=rtpmap:96 PS/90000\r\n"
 		"a=rtpmap:98 H264/90000\r\n"
@@ -759,18 +776,7 @@ int SIP_SERVER::Call_Build_Initial_Invite(int index,const char * rtp_svr, int rt
 		"y=0100001001\r\n"
 		, rtp_svr, rtp_svr, rtp_svr_port); 
 		osip_message_set_content_type(invite, "APPLICATION/SDP");
-		osip_message_set_body(invite, req_xml_body, strlen(req_xml_body));
-		//replace(invie_req_body->body,"26.1.1.59","218.94.1.147");
-		//printf("Call_Build_Initial_Invite   1 ");
-		//printf("11111invite  body %s\n",invie_req_body->body);
-		
-		//invie_req_body->body = replace(invie_req_body->body,"26.1.1.59","218.94.1.147");
-		//invie_req_body->body = replace(invie_req_body->body,"26.1.1.59","218.94.1.147");
-		//printf("2222222invite  body %s\n",invie_req_body->body);
-		//printf("Call_Build_Initial_Invite   2 ");
-		//osip_message_set_body(invite, invie_req_body->body, strlen(invie_req_body->body));
-		
-		
+		osip_message_set_body(invite, req_xml_body, strlen(req_xml_body));				
 		eXosip_lock();  
 		i=eXosip_call_send_initial_invite(invite); //invite SIP INVITE message to send 
 		eXosip_unlock();  
@@ -1353,7 +1359,7 @@ void   SIP_SERVER::ProcessKeepAlive()
 {
 	eXosip_event_t * je;
 	osip_message_t *reg = NULL;
-	int register_id = RegisterAction(reg);
+	int register_id ;//= RegisterAction(reg);
 	while(1)
 	{
 		je = eXosip_event_wait(0, 50);
@@ -1800,7 +1806,7 @@ char * SIP_SERVER::GetNonce()
 	return this->m_Nonce;
 }
 
-
+	
 int main (int argc, char *argv[])  
 {  
 
@@ -1882,12 +1888,21 @@ int main (int argc, char *argv[])
 					//sip_svr.Call_Build_Initial_Invite(SAMPLE_INDEX);
 					//printf("\n $$$$$$$$   index  @@@@@@@@@@@@@  is %d \n", loop);
 					break;
+				case 'c':
+					{printf("push video query start!\n");
+					sip_svr.VideoFileQuery(req_xml_body); 
+					osip_message_t* pushdevice = NULL;
+					eXosip_message_build_request(&pushdevice, "MESSAGE", REMOTESIP, LOCALSIP, NULL);	
+					osip_message_set_body(pushdevice, req_xml_body, strlen(req_xml_body));
+					osip_message_set_content_type(pushdevice, "Application/MANSCDP+xml");
+					eXosip_message_send_request(pushdevice);}
+					break;
 				case 'h':       
 					printf("Hang Up!\n");  
 					eXosip_lock();  
 					eXosip_call_terminate(sip_svr.m_je->cid, sip_svr.m_je->did);  
 					eXosip_unlock();  
-					break;  
+					break; 
 				case 'p':
 					{
 					
