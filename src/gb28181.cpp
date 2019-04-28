@@ -116,6 +116,8 @@ class SIP_SERVER:public SIP_BASIC, public GBCallBack
 		void ProcessKeepAlive();
 		void SendKeepAlive();
 		void VideoFileQuery(char* rsp_xml_body);
+		void Catalog(char* rsp_xml_body);
+		void PTZ_Control_left(char* rsp_xml_body);
 		int Call_Build_Initial_Invite(int index,const char * rtp_svr, int rtp_svr_port);
 		int Get_Ipc_Num();
 		void UpdateKeepAliveByDeviceID(char *device_id);
@@ -715,6 +717,18 @@ char*replace(char*src, char*sub, char*dst)
     }
     return pRet;
 }
+void SIP_SERVER::PTZ_Control_left(char* rsp_xml_body)
+{
+					snprintf(rsp_xml_body, 4096, 
+					"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
+					"<control>\r\n"
+					"<CmdType>DeviceControl</CmdType>\r\n"
+					"<SN>4</SN>\r\n"
+					"<DeviceID>32010000001320000001</DeviceID>\r\n"
+					"<PTZCmd>A50F0001E0E0F065</PTZCmd>\r\n"
+					"</control>\r\n");
+					
+}
 
 void SIP_SERVER::VideoFileQuery(char* rsp_xml_body)
 {
@@ -722,16 +736,26 @@ void SIP_SERVER::VideoFileQuery(char* rsp_xml_body)
 					"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
 					"<Query>\r\n"
 					"<CmdType>RecordInfo</CmdType>\r\n"
-					"<SN>4</SN>\r\n"
+					"<SN>7</SN>\r\n"
 					"<DeviceID>32010000001320000001</DeviceID>\r\n"
-					"<StartTime>2019-04-23T10:00:00</StartTime>\r\n"
-					"<EndTime>2019-04-23T15:00:00</EndTime>\r\n"
+					"<StartTime>2019-04-24T00:00:00</StartTime>\r\n"
+					"<EndTime>2019-04-24T23:59:59</EndTime>\r\n"
 					"<Type>all</Type>\r\n"
-					"<RecLocation>2</RecLocation>\r\n"
-					"<RecordPos>2</RecordPos>\r\n"
 					"</Query>\r\n");
 					
 }
+void SIP_SERVER::Catalog(char* rsp_xml_body)
+{
+					snprintf(rsp_xml_body, 4096, 
+					"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
+					"<Query>\r\n"
+					"<CmdType>Catalog</CmdType>\r\n"
+					"<SN>7</SN>\r\n"
+					"<DeviceID>32010000001320000001</DeviceID>\r\n"
+					"</Query>\r\n");
+					
+}
+
 
 
 int SIP_SERVER::Call_Build_Initial_Invite(int index,const char * rtp_svr, int rtp_svr_port)
@@ -766,15 +790,15 @@ int SIP_SERVER::Call_Build_Initial_Invite(int index,const char * rtp_svr, int rt
 		"s=Play\r\n"
 		"c=IN IP4 %s\r\n"
 		"t=0 0\r\n"
-		"m=video %d TCP/RTP/AVP 96 98 97\r\n"
+		"m=video %d RTP/AVP 96 98 97\r\n"
 		"a=recvonly\r\n"
 		"a=rtpmap:96 PS/90000\r\n"
 		"a=rtpmap:98 H264/90000\r\n"
 		"a=rtpmap:97 MPEG4/90000\r\n"
-		"a=setup:passive\r\n"
-		"a=connection:new\r\n"
 		"y=0100001001\r\n"
 		, rtp_svr, rtp_svr, rtp_svr_port); 
+		//"a=setup:passive\r\n"
+		//"a=connection:new\r\n"
 		osip_message_set_content_type(invite, "APPLICATION/SDP");
 		osip_message_set_body(invite, req_xml_body, strlen(req_xml_body));				
 		eXosip_lock();  
@@ -1436,6 +1460,11 @@ void   SIP_SERVER::ProcessKeepAlive()
 							printf("MSG_IS_SUBSCRIBE\n");
 							this->Answer200();
 						}*/
+						else if(MSG_IS_NOTIFY(je->request))
+						{
+							printf("MSG_IS_NOTIFY\n");
+							this->Answer200();
+						}
 						else if(MSG_IS_MESSAGE(je->request))
 						{
 
@@ -1879,7 +1908,7 @@ int main (int argc, char *argv[])
 			getchar();  
 			switch(command)  
 			{  
-				case 'i': 
+				case 'a': 
 #if 1	
 						printf("\n $$$$$$$$   index   @@@@@@@@@@@@@  is %d \n", loop);
 						sip_svr.Call_Build_Initial_Invite(loop,"192.168.75.112",8402);
@@ -1888,6 +1917,17 @@ int main (int argc, char *argv[])
 					//sip_svr.Call_Build_Initial_Invite(SAMPLE_INDEX);
 					//printf("\n $$$$$$$$   index  @@@@@@@@@@@@@  is %d \n", loop);
 					break;
+				case 'b':
+									
+									{printf("catalog start!\n");
+									sip_svr.Catalog(req_xml_body); 
+									osip_message_t* pushdevice = NULL;
+									eXosip_message_build_request(&pushdevice, "MESSAGE", REMOTESIP, LOCALSIP, NULL);	
+									osip_message_set_body(pushdevice, req_xml_body, strlen(req_xml_body));
+									osip_message_set_content_type(pushdevice, "Application/MANSCDP+xml");
+									eXosip_message_send_request(pushdevice);}
+									break;
+
 				case 'c':
 					{printf("push video query start!\n");
 					sip_svr.VideoFileQuery(req_xml_body); 
@@ -1897,13 +1937,13 @@ int main (int argc, char *argv[])
 					osip_message_set_content_type(pushdevice, "Application/MANSCDP+xml");
 					eXosip_message_send_request(pushdevice);}
 					break;
-				case 'h':       
+				case 'd':       
 					printf("Hang Up!\n");  
 					eXosip_lock();  
 					eXosip_call_terminate(sip_svr.m_je->cid, sip_svr.m_je->did);  
 					eXosip_unlock();  
 					break; 
-				case 'p':
+				case 'e':
 					{
 					
 					printf("push device Catalog start!\n");
@@ -1917,12 +1957,12 @@ int main (int argc, char *argv[])
 					}
 					break;
 					
-				case 'q':  
+				case 'f':  
 					eXosip_quit();  
 					printf("Exit the setup!\n");  
 					flag=0;  
 					break;  
-				case 'n':
+				case 'g':
 					printf("\n\n num of device is %d\n\n", sip_svr.Get_Ipc_Num());
 					break;
 				}  
