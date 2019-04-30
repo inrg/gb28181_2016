@@ -14,7 +14,7 @@
 #include <stdlib.h>  
 #include <time.h>
 #include <eXosip2/eXosip.h>
-
+#include "redis.h"
 #define SIPERROR -1
 #define SIPSUCCESS 0
 #define REQUEST 1

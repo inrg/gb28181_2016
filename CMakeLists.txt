@@ -16,7 +16,7 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/include)
 AUX_SOURCE_DIRECTORY(${CMAKE_SOURCE_DIR}/src LINK_SOURCEFILES)
 
 # 设置链接库名称
-SET(LINK_LIB_LIST eXosip2 osip2 osipparser2 pthread iconv json)
+SET(LINK_LIB_LIST eXosip2 osip2 osipparser2 pthread iconv json hiredis)
 # 设置链接库目录
 LINK_DIRECTORIES(${CMAKE_SOURCE_DIR}/libs)
 

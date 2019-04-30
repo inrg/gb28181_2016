@@ -1838,6 +1838,17 @@ char * SIP_SERVER::GetNonce()
 	
 int main (int argc, char *argv[])  
 {  
+	Redis *r = new Redis();
+	if(!r->connect("127.0.0.1", 6379))
+    {
+        printf("connect error!\n");
+        return 0;
+    }
+	else
+	{
+		printf("connect success!\n");
+	}
+
 
 	SIP_SERVER  sip_svr;
 
