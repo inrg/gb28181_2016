@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/home/xhw/gb28181_2016/src/MyDB.cpp" "/home/xhw/gb28181_2016/debug/CMakeFiles/gb28181.dir/src/MyDB.cpp.o"
   "/home/xhw/gb28181_2016/src/algorithm.cpp" "/home/xhw/gb28181_2016/debug/CMakeFiles/gb28181.dir/src/algorithm.cpp.o"
   "/home/xhw/gb28181_2016/src/gb28181.cpp" "/home/xhw/gb28181_2016/debug/CMakeFiles/gb28181.dir/src/gb28181.cpp.o"
   "/home/xhw/gb28181_2016/src/osip_md5.cpp" "/home/xhw/gb28181_2016/debug/CMakeFiles/gb28181.dir/src/osip_md5.cpp.o"

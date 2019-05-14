@@ -57,9 +57,33 @@ include CMakeFiles/gb28181.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/gb28181.dir/flags.make
 
+CMakeFiles/gb28181.dir/src/MyDB.cpp.o: CMakeFiles/gb28181.dir/flags.make
+CMakeFiles/gb28181.dir/src/MyDB.cpp.o: ../src/MyDB.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xhw/gb28181_2016/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/gb28181.dir/src/MyDB.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gb28181.dir/src/MyDB.cpp.o -c /home/xhw/gb28181_2016/src/MyDB.cpp
+
+CMakeFiles/gb28181.dir/src/MyDB.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/gb28181.dir/src/MyDB.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xhw/gb28181_2016/src/MyDB.cpp > CMakeFiles/gb28181.dir/src/MyDB.cpp.i
+
+CMakeFiles/gb28181.dir/src/MyDB.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/gb28181.dir/src/MyDB.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xhw/gb28181_2016/src/MyDB.cpp -o CMakeFiles/gb28181.dir/src/MyDB.cpp.s
+
+CMakeFiles/gb28181.dir/src/MyDB.cpp.o.requires:
+
+.PHONY : CMakeFiles/gb28181.dir/src/MyDB.cpp.o.requires
+
+CMakeFiles/gb28181.dir/src/MyDB.cpp.o.provides: CMakeFiles/gb28181.dir/src/MyDB.cpp.o.requires
+	$(MAKE) -f CMakeFiles/gb28181.dir/build.make CMakeFiles/gb28181.dir/src/MyDB.cpp.o.provides.build
+.PHONY : CMakeFiles/gb28181.dir/src/MyDB.cpp.o.provides
+
+CMakeFiles/gb28181.dir/src/MyDB.cpp.o.provides.build: CMakeFiles/gb28181.dir/src/MyDB.cpp.o
+
+
 CMakeFiles/gb28181.dir/src/algorithm.cpp.o: CMakeFiles/gb28181.dir/flags.make
 CMakeFiles/gb28181.dir/src/algorithm.cpp.o: ../src/algorithm.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xhw/gb28181_2016/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/gb28181.dir/src/algorithm.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xhw/gb28181_2016/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/gb28181.dir/src/algorithm.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gb28181.dir/src/algorithm.cpp.o -c /home/xhw/gb28181_2016/src/algorithm.cpp
 
 CMakeFiles/gb28181.dir/src/algorithm.cpp.i: cmake_force
@@ -83,7 +107,7 @@ CMakeFiles/gb28181.dir/src/algorithm.cpp.o.provides.build: CMakeFiles/gb28181.di
 
 CMakeFiles/gb28181.dir/src/gb28181.cpp.o: CMakeFiles/gb28181.dir/flags.make
 CMakeFiles/gb28181.dir/src/gb28181.cpp.o: ../src/gb28181.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xhw/gb28181_2016/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/gb28181.dir/src/gb28181.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xhw/gb28181_2016/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/gb28181.dir/src/gb28181.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gb28181.dir/src/gb28181.cpp.o -c /home/xhw/gb28181_2016/src/gb28181.cpp
 
 CMakeFiles/gb28181.dir/src/gb28181.cpp.i: cmake_force
@@ -107,7 +131,7 @@ CMakeFiles/gb28181.dir/src/gb28181.cpp.o.provides.build: CMakeFiles/gb28181.dir/
 
 CMakeFiles/gb28181.dir/src/osip_md5.cpp.o: CMakeFiles/gb28181.dir/flags.make
 CMakeFiles/gb28181.dir/src/osip_md5.cpp.o: ../src/osip_md5.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xhw/gb28181_2016/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/gb28181.dir/src/osip_md5.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xhw/gb28181_2016/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/gb28181.dir/src/osip_md5.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/gb28181.dir/src/osip_md5.cpp.o -c /home/xhw/gb28181_2016/src/osip_md5.cpp
 
 CMakeFiles/gb28181.dir/src/osip_md5.cpp.i: cmake_force
@@ -131,6 +155,7 @@ CMakeFiles/gb28181.dir/src/osip_md5.cpp.o.provides.build: CMakeFiles/gb28181.dir
 
 # Object files for target gb28181
 gb28181_OBJECTS = \
+"CMakeFiles/gb28181.dir/src/MyDB.cpp.o" \
 "CMakeFiles/gb28181.dir/src/algorithm.cpp.o" \
 "CMakeFiles/gb28181.dir/src/gb28181.cpp.o" \
 "CMakeFiles/gb28181.dir/src/osip_md5.cpp.o"
@@ -138,12 +163,13 @@ gb28181_OBJECTS = \
 # External object files for target gb28181
 gb28181_EXTERNAL_OBJECTS =
 
+../bin/gb28181: CMakeFiles/gb28181.dir/src/MyDB.cpp.o
 ../bin/gb28181: CMakeFiles/gb28181.dir/src/algorithm.cpp.o
 ../bin/gb28181: CMakeFiles/gb28181.dir/src/gb28181.cpp.o
 ../bin/gb28181: CMakeFiles/gb28181.dir/src/osip_md5.cpp.o
 ../bin/gb28181: CMakeFiles/gb28181.dir/build.make
 ../bin/gb28181: CMakeFiles/gb28181.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/xhw/gb28181_2016/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable ../bin/gb28181"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/xhw/gb28181_2016/debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable ../bin/gb28181"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/gb28181.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -151,6 +177,7 @@ CMakeFiles/gb28181.dir/build: ../bin/gb28181
 
 .PHONY : CMakeFiles/gb28181.dir/build
 
+CMakeFiles/gb28181.dir/requires: CMakeFiles/gb28181.dir/src/MyDB.cpp.o.requires
 CMakeFiles/gb28181.dir/requires: CMakeFiles/gb28181.dir/src/algorithm.cpp.o.requires
 CMakeFiles/gb28181.dir/requires: CMakeFiles/gb28181.dir/src/gb28181.cpp.o.requires
 CMakeFiles/gb28181.dir/requires: CMakeFiles/gb28181.dir/src/osip_md5.cpp.o.requires

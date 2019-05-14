@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/gb28181.dir/src/MyDB.cpp.o"
   "CMakeFiles/gb28181.dir/src/algorithm.cpp.o"
   "CMakeFiles/gb28181.dir/src/gb28181.cpp.o"
   "CMakeFiles/gb28181.dir/src/osip_md5.cpp.o"

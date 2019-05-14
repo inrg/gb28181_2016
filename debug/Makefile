@@ -123,6 +123,33 @@ gb28181/fast:
 	$(MAKE) -f CMakeFiles/gb28181.dir/build.make CMakeFiles/gb28181.dir/build
 .PHONY : gb28181/fast
 
+src/MyDB.o: src/MyDB.cpp.o
+
+.PHONY : src/MyDB.o
+
+# target to build an object file
+src/MyDB.cpp.o:
+	$(MAKE) -f CMakeFiles/gb28181.dir/build.make CMakeFiles/gb28181.dir/src/MyDB.cpp.o
+.PHONY : src/MyDB.cpp.o
+
+src/MyDB.i: src/MyDB.cpp.i
+
+.PHONY : src/MyDB.i
+
+# target to preprocess a source file
+src/MyDB.cpp.i:
+	$(MAKE) -f CMakeFiles/gb28181.dir/build.make CMakeFiles/gb28181.dir/src/MyDB.cpp.i
+.PHONY : src/MyDB.cpp.i
+
+src/MyDB.s: src/MyDB.cpp.s
+
+.PHONY : src/MyDB.s
+
+# target to generate assembly for a file
+src/MyDB.cpp.s:
+	$(MAKE) -f CMakeFiles/gb28181.dir/build.make CMakeFiles/gb28181.dir/src/MyDB.cpp.s
+.PHONY : src/MyDB.cpp.s
+
 src/algorithm.o: src/algorithm.cpp.o
 
 .PHONY : src/algorithm.o
@@ -213,6 +240,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... gb28181"
 	@echo "... edit_cache"
+	@echo "... src/MyDB.o"
+	@echo "... src/MyDB.i"
+	@echo "... src/MyDB.s"
 	@echo "... src/algorithm.o"
 	@echo "... src/algorithm.i"
 	@echo "... src/algorithm.s"
