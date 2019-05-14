@@ -1218,7 +1218,7 @@ int SIP_SERVER::ProcessRegister()
 	                 0, &header);
 	        if (NULL != header && NULL != header->hvalue)
 	        {
-	             printf("thi expires is %d  \n\n", atoi(header->hvalue));
+	             printf("this expires is %d  \n\n", atoi(header->hvalue));
 				 expires =  atoi(header->hvalue);
 	        }
 			else
@@ -1229,14 +1229,11 @@ int SIP_SERVER::ProcessRegister()
 			/* 需要先提取请求的数据 */
 			osip_contact_t * p_contact  = NULL;
 			osip_message_get_contact(this->m_je->request, 0,  &p_contact);
-			
 
 			eXosip_lock ();
 			//eXosip_default_action(this->m_je);
 			eXosip_message_build_answer (this->m_je->tid, 200, &asw_register);
 			eXosip_message_send_answer (this->m_je->tid, 200, asw_register);
-
-			
 
 			int index = this->Is_device_Register(pszUserName);
 			int index_ipc_svr = 0;
@@ -1250,10 +1247,14 @@ int SIP_SERVER::ProcessRegister()
 						this->m_ipc_num -= MAX_IPC_NUM;
 				}
 				/* 需要重复覆盖时，需要注意将原有的对象释放掉 */
-				if(this->ipc_list[this->m_ipc_num])
+				if(this->ipc_list[this->m_ipc_num-1])
 				{
-					delete 	this->ipc_list[this->m_ipc_num];
-					this->ipc_list[this->m_ipc_num] = NULL;
+				    printf("gy666");
+					//this->ipc_list[this->m_ipc_num] = NULL;
+					delete 	this->ipc_list[this->m_ipc_num-1];
+					//delete ipc_list[this->m_ipc_num];
+					//this->ipc_list[this->m_ipc_num] = NULL;
+					
 				}
 				this->ipc_list[this->m_ipc_num] = new SIP_IPC;
 				/* 将一些关键的子变量赋值到类上 */
@@ -1521,7 +1522,7 @@ void   SIP_SERVER::ProcessKeepAlive()
 								osip_message_set_body(rsp_msg, rsp_xml_body, strlen(rsp_xml_body));
 								osip_message_set_content_type(rsp_msg, "Application/MANSCDP+xml");
 								eXosip_message_send_request(rsp_msg);		
-								printf(" eXosip_message_send_request success! \r\n");
+								//printf(" eXosip_message_send_request success! \r\n");
 							}
 							else
 							{
@@ -1838,7 +1839,7 @@ char * SIP_SERVER::GetNonce()
 	
 int main (int argc, char *argv[])  
 {  
-	Redis *r = new Redis();
+	/*Redis *r = new Redis();
 	if(!r->connect("127.0.0.1", 6379))
     {
         printf("connect error!\n");
@@ -1847,7 +1848,7 @@ int main (int argc, char *argv[])
 	else
 	{
 		printf("connect success!\n");
-	}
+	}*/
 
 
 	SIP_SERVER  sip_svr;

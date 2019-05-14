@@ -45,8 +45,22 @@ time.h
 -
 eXosip2/eXosip.h
 -
+redis.h
+../include/redis.h
 
 ../include/osip_md5.h
+
+../include/redis.h
+iostream
+-
+string.h
+-
+string
+-
+stdio.h
+-
+hiredis/hiredis.h
+-
 
 /home/xhw/gb28181_2016/src/algorithm.cpp
 algorithm.h

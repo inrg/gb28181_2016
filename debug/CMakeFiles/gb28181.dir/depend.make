@@ -8,6 +8,7 @@ CMakeFiles/gb28181.dir/src/algorithm.cpp.o: ../src/algorithm.cpp
 CMakeFiles/gb28181.dir/src/gb28181.cpp.o: ../include/algorithm.h
 CMakeFiles/gb28181.dir/src/gb28181.cpp.o: ../include/gb28181.h
 CMakeFiles/gb28181.dir/src/gb28181.cpp.o: ../include/osip_md5.h
+CMakeFiles/gb28181.dir/src/gb28181.cpp.o: ../include/redis.h
 CMakeFiles/gb28181.dir/src/gb28181.cpp.o: ../src/gb28181.cpp
 
 CMakeFiles/gb28181.dir/src/osip_md5.cpp.o: ../include/osip_md5.h
